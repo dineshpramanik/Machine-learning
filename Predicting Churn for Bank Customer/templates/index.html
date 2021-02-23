@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Churn Prediction</title>
+</head>
+
+<body>
+    <div class="container">
+        <form action="{{ url_for('predict')}}" method="post">
+            <div class="segment">
+	            <h1>Enter the information below to check if the Customer will leave the Bank or not!!!</h1>
+            </div>
+
+            <div class="row">
+                <div class="col-25">
+                    <label>Credit Score</label>
+                </div>
+                <div class="col-75">
+                    <input name="CreditScore"  required="required" type="number">
+                    <div class="validation"></div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-25">
+                    <label>Age of customer</label>
+                </div>
+                <div class="col-75">
+                    <input name="Age" required="required" type="number">
+                    <div class="validation"></div>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-25">
+                    <label>Tenure</label>
+                </div>
+                <div class="col-75">
+                    <input name="Tenure" required="required" type="number">
+                    <div class="validation"></div>
+                </div>
+            </div>
+
+
+
+            <div class="row">
+                <div class="col-25">
+                    <label>Account Balance</label>
+                </div>
+                <div class="col-75">
+                    <input name="Balance" required="required" type="number">
+                    <div class="validation"></div>
+                </div>
+            </div>
+
+
+
+            <div class="row">
+                <div class="col-25">
+                    <label>Number of Products</label>
+                </div>
+                <div class="col-75">
+                    <input name="NumOfProducts" required="required" type="number">
+                    <div class="validation"></div>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-25">
+                    <label>Do the Customer has the Credit card (1=Yes, 0=No)</label>
+                </div>
+                <div class="col-75">
+                    <input name="HasCrCard" required="required" type="number">
+                    <div class="validation"></div>
+                </div>
+            </div>
+
+
+
+            <div class="row">
+                <div class="col-25">
+                    <label>Is the Customer an active member (1=Yes, 0=No)</label>
+                </div>
+                <div class="col-75">
+                    <input name="IsActiveMember" required="required" type="number">
+                    <div class="validation"></div>
+                </div>
+            </div>
+
+
+
+            <div class="row">
+                <div class="col-25">
+                    <label>Estimated salary of customer</label>
+                </div>
+                <div class="col-75">
+                    <input name="EstimatedSalary" required="required" type="number">
+                    <div class="validation"></div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-25">
+                    <label>Location</label>
+                </div>
+                <div class="col-15">
+                    <select name="Geography_Germany" required="required">
+                    <option value="Germany">Germany</option>
+                    <option value="Spain">Spain</option>
+                    <option value="France">France</option>
+                    </select>
+                    <div class="validation"></div>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-25">
+                    <label>Gender</label>
+                </div>
+                <div class="col-15">
+                    <select name="Gender_Male" required="required">
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                </select>
+                    <div class="validation"></div>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-25">
+                </div>
+                <div class="col-15">
+                    <br><br><br>
+                    <input  type="submit" value="Predict if the Customer will leave the bank or not">
+                </div>
+            </div>
+
+        </form>
+    </div>
+
+
+
+
+<div class="results">
+    {% if prediction == 1 %}
+        <h2 style="color:green">This customer will not leave the Bank!!!</h2>
+    {% elif prediction == 0 %}
+        <h2 style="color:red">This customer will leave the Bank!!!</h2>
+    {% endif %}
+</div>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+input[type=text], select, textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: vertical;
+}
+
+label {
+  padding: 12px 12px 12px 0;
+  display: inline-block;
+}
+
+input[type=submit] {
+  background-color: #4CAF50;
+  color: white;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  float: right;
+}
+
+input[type=select] {
+  background-color: white;
+  color: white;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  float: right;
+}
+
+input[type=submit]:hover {
+  background-color: #45a049;
+}
+
+.container {
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  padding: 20px;
+}
+
+.col-15 {
+  float: left;
+  width: 15%;
+  margin-top: 4px;
+}
+
+.col-25 {
+  float: left;
+  width: 25%;
+  margin-top: 4px;
+}
+
+.col-75 {
+  float: left;
+  width: 75%;
+  margin-top: 10px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 600px) {
+  .col-25, .col-75, input[type=submit] {
+    width: 100%;
+    margin-top: 0;
+  }
+}
+</style>
+
+
+</body>
+</html>
